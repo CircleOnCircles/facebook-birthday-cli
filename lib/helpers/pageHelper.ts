@@ -1,5 +1,5 @@
 import chalk from 'chalk';
-import {Browser, ElementHandle, launch, Page, Response} from 'puppeteer';
+import {Browser, ElementHandle, launch, Page, Response, connect} from 'puppeteer';
 
 import {locators} from './locators';
 
@@ -14,10 +14,14 @@ class PageHelper {
   }
 
   public async init() {
-    this.browser = await launch({
-      headless: true,
-      args: ['--disable-notifications', '--start-maximized'],
+    this.browser = await connect({
+      browserURL: "http://127.0.0.1:9222",
+        defaultViewport: null
     });
+    // this.browser = await launch({
+    //   headless: true,
+    //   args: ['--disable-notifications', '--start-maximized'],
+    // });
     this.page = await this.browser.newPage();
   }
   /**
@@ -328,19 +332,19 @@ class PageHelper {
       }
     }
   }
-  /**
-   * @returns Promise
-   */
-  public async logout(): Promise<void> {
-    try {
-      await this.clickElement(locators.logoutLink);
-      await this.xpathClick(locators.logoutButton);
-      await this.page.waitFor(500);
-    } catch (Exception) {
-      console.error('\nLogout Failed! Most likely due to below reason');
-      throw Exception;
-    }
-  }
+  // /**
+  //  * @returns Promise
+  //  */
+  // public async logout(): Promise<void> {
+  //   try {
+  //     await this.clickElement(locators.logoutLink);
+  //     await this.xpathClick(locators.logoutButton);
+  //     await this.page.waitFor(500);
+  //   } catch (Exception) {
+  //     console.error('\nLogout Failed! Most likely due to below reason');
+  //     throw Exception;
+  //   }
+  // }
 }
 
 export {PageHelper};

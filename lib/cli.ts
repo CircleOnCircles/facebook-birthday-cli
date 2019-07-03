@@ -3,7 +3,7 @@ import * as program from 'commander';
 import * as inquirer from 'inquirer';
 
 import {BirthdayWisher, wishes} from './birthday';
-import {configFileExists, decryptCredentials, getConfigPath, writeFile} from './utils/config';
+import {configFileExists, getConfigPath, writeFile} from './utils/config';
 
 const configBirthdayNames: string[] = [];
 
@@ -32,7 +32,7 @@ program.command('wish')
     .alias('w')
     .description('Facebook wish command')
     .option('-a, --all', 'wish all friends')
-    .option('-r, --reset', 'resets all config values to default')
+    // .option('-r, --reset', 'resets all config values to default')
     .action(async (options: any) => {
       try {
         if (!await configFileExists()) {
@@ -50,21 +50,21 @@ program.command('wish')
           if (savedConfig.firstLogin === true) {
             console.log('\n');
             config.day = today;
-            credentials = await inquirer.prompt([
-              {
-                message: 'Please enter your facebook username:',
-                name: 'username',
-                type: 'input',
-              },
-              {
-                message: 'Please enter your facebook password:',
-                name: 'password',
-                mask: '*',
-                type: 'password',
-              },
-            ]);
-            console.log(chalk.yellowBright(loginText));
-            config = await Wisher.login(credentials, config, savedConfig);
+            // credentials = await inquirer.prompt([
+            //   {
+            //     message: 'Please enter your facebook username:',
+            //     name: 'username',
+            //     type: 'input',
+            //   },
+            //   {
+            //     message: 'Please enter your facebook password:',
+            //     name: 'password',
+            //     mask: '*',
+            //     type: 'password',
+            //   },
+            // ]);
+            // console.log(chalk.yellowBright(loginText));
+            config = await Wisher.login(config, savedConfig);
           } else {
             if (savedConfig.birthday === false) {
               console.error(chalk.red(
@@ -81,9 +81,9 @@ program.command('wish')
               process.exit(0);
             }
             const savedCredentials: any = {};
-            decryptCredentials(savedConfig, savedCredentials);
+            // decryptCredentials(savedConfig, savedCredentials);
             console.log(chalk.yellowBright(loginText));
-            config = await Wisher.login(savedCredentials, config, savedConfig);
+            config = await Wisher.login(config, savedConfig);
           }
           if (!options.all) {
             config = await Wisher.findAndWish(config, savedConfig);

@@ -31,28 +31,29 @@ async function configFileExists(): Promise<boolean> {
   return false;
 }
 
-/**
- * @param  {any} answers
- */
-function encryptCredentials(config: any, answers: any) {
-  try {
-    config.username = encrypt(answers.username);
-    config.password = encrypt(answers.password);
-  } catch (Exception) {
-    throw new Error(Exception);
-  }
-}
+// /**
+//  * @param  {any} answers
+//  */
+// function encryptCredentials(config: any, answers: any) {
+//   try {
+//     config.username = encrypt(answers.username);
+//     config.password = encrypt(answers.password);
+//   } catch (Exception) {
+//     throw new Error(Exception);
+//   }
+// }
 
-/**
- * @param  {any} answers
- */
-function decryptCredentials(config: any, answers: any) {
-  try {
-    answers.username = decrypt(config.username);
-    answers.password = decrypt(config.password);
-  } catch (Exception) {
-    throw new Error(Exception);
-  }
-}
+// /**
+//  * @param  {any} answers
+//  */
+// function decryptCredentials(config: any, answers: any) {
+//   try {
+//     answers.username = decrypt(config.username);
+//     answers.password = decrypt(config.password);
+//   } catch (Exception) {
+//     throw new Error(Exception);
+//   }
+// }
 
-export {getConfigPath, writeFile, configFileExists, encryptCredentials, decryptCredentials};
+export {getConfigPath, writeFile, configFileExists, 
+};

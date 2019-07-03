@@ -4,13 +4,13 @@ import * as inquirer from 'inquirer';
 import {ElementHandle} from 'puppeteer';
 import {locators} from './helpers/locators';
 import {PageHelper} from './helpers/pageHelper';
-import {encryptCredentials} from './utils/config';
+// import {encryptCredentials} from './utils/config';
 
 const wishes: string[] = [
-  'Happy Birthday!',
-  'Happy Birthday Buddy!',
-  'Happy Birthday my Friend!',
-  'Wish you many many happy returns of the day!',
+  'HBD นะครับ 😊',
+  'มีความสุขมากๆนะฮ่ะ 🥰',
+  'HBD naa krub 😚',
+  'ขอให้มีเวลาเกินพอในทุกๆสิ่งที่รักนะ ที่สำคัญสุขภาพแข็งแรง😁',
   'I want to write my own custom message!',
 ];
 let currentRetryCount: number = 0;
@@ -45,44 +45,44 @@ class BirthdayWisher {
   /**
    * @param  {any} answers
    */
-  public async login(credentials: any, config: any, savedConfig: any) {
+  public async login(config: any, savedConfig: any) {
     try {
       await this.page.init();
-      await this.page.open(locators.url);
-      await this.page.focusElement(locators.username);
-      await this.page.clearElement(locators.username);
-      await this.page.sendElementText(locators.username, credentials.username);
-      await this.page.focusElement(locators.password);
-      await this.page.clearElement(locators.password);
-      await this.page.sendElementText(locators.password, credentials.password);
-      try {
-        await Promise.all([
-          this.page.clickElement(locators.loginButton),
-          this.page.waitForNavigation({waitUntil: 'networkidle2'}),
-        ]);
+      // await this.page.open(locators.url);
+      // await this.page.focusElement(locators.username);
+      // await this.page.clearElement(locators.username);
+      // await this.page.sendElementText(locators.username, credentials.username);
+      // await this.page.focusElement(locators.password);
+      // await this.page.clearElement(locators.password);
+      // await this.page.sendElementText(locators.password, credentials.password);
+      // try {
+      //   await Promise.all([
+      //     this.page.clickElement(locators.loginButton),
+      //     this.page.waitForNavigation({waitUntil: 'networkidle2'}),
+      //   ]);
         if (savedConfig.firstLogin) {
-          await encryptCredentials(config, credentials);
+          // await encryptCredentials(config, credentials);
           config.firstLogin = false;
         }
-      } catch (Exception) {
-        throw new Error(Exception);
-      }
+      // } catch (Exception) {
+      //   throw new Error(Exception);
+      // }
       await this.page.open(locators.url + '/events/birthdays');
 
     } catch (Exception) {
-      try {
-        config.firstLogin = true;
-        config.username = '';
-        config.password = '';
-        const title = await this.page.getTitle();
-        if (title.indexOf('Events') === -1) {
-          throw new Error(
-              'Login Failed! Most likely due to Invalid Credentials or below reason :' +
-              '\n' + Exception.toString());
-        }
-      } catch (Exception) {
-        throw Exception;
-      }
+      // try {
+      //   config.firstLogin = true;
+      //   config.username = '';
+      //   config.password = '';
+      //   const title = await this.page.getTitle();
+      //   if (title.indexOf('Events') === -1) {
+      //     throw new Error(
+      //         'Login Failed! Most likely due to Invalid Credentials or below reason :' +
+      //         '\n' + Exception.toString());
+      //   }
+      // } catch (Exception) {
+      //   throw Exception;
+      // }
     }
     return config;
   }
@@ -182,7 +182,7 @@ class BirthdayWisher {
           }
         }
       }
-      await this.page.logout();
+      // await this.page.logout();
     } catch (Exception) {
       console.error(chalk.red('\n' + Exception.toString() + '\n'));
     }
@@ -222,7 +222,7 @@ class BirthdayWisher {
           }
         }
       }
-      await this.page.logout();
+      // await this.page.logout();
     } catch (Exception) {
       console.error(chalk.red('\n' + Exception.toString() + '\n'));
     }

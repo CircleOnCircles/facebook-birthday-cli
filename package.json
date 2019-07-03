@@ -8,7 +8,7 @@
     "build": "tsc",
     "clean": "rimraf built/",
     "clean-build": "npm run clean && npm run build",
-    "format": "clang-format -i --glob='+(lib|test)/**/*.ts'",
+    "format": "npm run clean",
     "lint": "tslint -c tslint.json 'lib/**/*.ts'",
     "prepare": "npm run clean-build",
     "pretest": "npm run lint",
@@ -45,7 +45,7 @@
     "jest": "^24.7.1",
     "tslint": "^5.10.0",
     "tslint-eslint-rules": "^5.3.1",
-    "typescript": "^2.9.2"
+    "typescript": "^3.5.2"
   },
   "repository": {
     "type": "git",
